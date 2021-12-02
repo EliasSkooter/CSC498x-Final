@@ -19,6 +19,11 @@ export default function Signin({ navigation }) {
     const SubmitSignUp = (username, password) => {
         // console.log("username: " + username + "\npassword: " + password + "\nIP: " + IP);
 
+        if (username == undefined && password == undefined) {
+            console.log("Please enter a username and a password!");
+            return "Failure"
+        }
+
         const bodyReq = {
             username: username,
             password: password

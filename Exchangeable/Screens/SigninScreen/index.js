@@ -16,6 +16,11 @@ export default function Signin({ navigation }) {
     const [listofUsers, setListofUsers] = useState([]);
 
     const SubmitLogin = (username, password) => {
+
+        if (username == undefined && password == undefined) {
+            console.log("Please enter a username and a password!")
+            return "Failure"
+        }
         // console.log("username: " + username + "\npassword: " + password + "\nIP: " + IP);
 
         const bodyReq = {
@@ -27,6 +32,7 @@ export default function Signin({ navigation }) {
             if (username.toUpperCase() == listofUsers[i].username.toUpperCase()) {
                 if (password.toUpperCase() == listofUsers[i].password.toUpperCase()) {
                     console.log("sign in succeeded!");
+                    navigation.navigate("Home");
                     return "Success"
                 }
             }
@@ -69,7 +75,7 @@ export default function Signin({ navigation }) {
             <View style={styles.textInputView1}>
                 <TextInput
                     style={styles.textInput1}
-                    placeholder="enter email here..."
+                    placeholder="enter username here..."
                     placeholderTextColor="grey"
                     onChangeText={text => {
                         setUsername(text);
@@ -98,7 +104,7 @@ export default function Signin({ navigation }) {
                         SubmitLogin(username, password);
                     }}
                 >
-                    <Text style={styles.buttonText}> Sign Up</Text>
+                    <Text style={styles.buttonText}> Sign In</Text>
                 </TouchableOpacity>
             </View>
 

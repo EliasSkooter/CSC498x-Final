@@ -29,7 +29,10 @@ export default StyleSheet.create({
         marginLeft: wp("15%"),
         marginRight: wp('15%'),
         marginBottom: hp('10%'),
-        borderRadius: 5
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: 'green'
+        
     },
 
     buttonView2: {
@@ -39,7 +42,9 @@ export default StyleSheet.create({
         backgroundColor: 'rgb(0,139,139)',
         marginLeft: wp("15%"),
         marginRight: wp('15%'),
-        borderRadius: 5
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: 'green'
     },
 
     button: { 

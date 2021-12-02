@@ -10,6 +10,10 @@ import Settings from "../Screens/SettingsScreen";
 
 const screens = {
 
+    Home: {
+        screen: Home
+    },
+    
     Landing: {
         screen: Landing
     },
@@ -22,9 +26,6 @@ const screens = {
         screen: Signin
     },
     
-    Home: {
-        screen: Home
-    },
 
     Trends: {
         screen: Trends
