@@ -1,0 +1,1 @@
+export const IP = 'http://10.21.141.101:1337';
