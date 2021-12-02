@@ -6,6 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import styles from "./styles";
 import { IP } from '../../config/BackendIP';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const logo = require('../../assets/Exchangeable.png');
 
@@ -32,6 +33,11 @@ export default function Signin({ navigation }) {
             if (username.toUpperCase() == listofUsers[i].username.toUpperCase()) {
                 if (password.toUpperCase() == listofUsers[i].password.toUpperCase()) {
                     console.log("sign in succeeded!");
+                    AsyncStorage.setItem("User", listofUsers[i].id.toString())
+                    .catch(e => {
+                        console.log("Failed to save user in Async Storage...");
+                    });
+                    
                     navigation.navigate("Home");
                     return "Success"
                 }

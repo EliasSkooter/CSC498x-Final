@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { View, Text, SafeAreaView, TextInput } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import styles from "./styles";
+import { StackActions, NavigationActions } from "react-navigation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Home() {
+export default function Home({navigation}) {
 
     const [openFrom, setOpenFrom] = useState(false);
     const [fromValue, setFromValue] = useState(null);
