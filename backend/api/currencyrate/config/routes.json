@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/currencyrates",
+      "handler": "currencyrate.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/currencyrates/count",
+      "handler": "currencyrate.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/currencyrates/:id",
+      "handler": "currencyrate.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/currencyrates",
+      "handler": "currencyrate.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/currencyrates/:id",
+      "handler": "currencyrate.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/currencyrates/:id",
+      "handler": "currencyrate.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

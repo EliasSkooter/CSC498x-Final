@@ -24,11 +24,6 @@ export default function Signin({ navigation }) {
         }
         // console.log("username: " + username + "\npassword: " + password + "\nIP: " + IP);
 
-        const bodyReq = {
-            username: username,
-            password: password
-        };
-
         for (let i = 0; i < listofUsers.length; i++) {
             if (username.toUpperCase() == listofUsers[i].username.toUpperCase()) {
                 if (password.toUpperCase() == listofUsers[i].password.toUpperCase()) {

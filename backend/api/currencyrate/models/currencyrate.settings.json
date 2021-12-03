@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "currencyrates",
+  "info": {
+    "name": "currency_rate",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "rate": {
+      "type": "float"
+    }
+  }
+}

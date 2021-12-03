@@ -22,9 +22,10 @@ export default StyleSheet.create({
     },
 
     textInputView1: {
-        flex: 1 / 10,
+        // flex: 1 / 10,
         alignItems: 'center',
         justifyContent: 'center',
+        height: 60,
         // backgroundColor: 'rgb(0,128,128)',
         marginLeft: wp("15%"),
         marginRight: wp('15%'),
@@ -40,9 +41,9 @@ export default StyleSheet.create({
     },
 
     textInputView2: {
-        flex: 1 / 10,
         alignItems: 'center',
         justifyContent: 'center',
+        height: 60,
         // backgroundColor: 'rgb(0,139,139)',
         marginLeft: wp("15%"),
         marginRight: wp('15%'),
@@ -81,7 +82,7 @@ export default StyleSheet.create({
     },
 
     logoView: {
-        // flex: 1 / 2.5,
+        // flex: 1 / 1,
         position: 'absolute',
         bottom: wp('5%'),
         left: wp('15%'),
@@ -90,6 +91,7 @@ export default StyleSheet.create({
     },
 
     image: {
+        flex: 1/5,
         width: wp('70%'),
         height: wp('60%')
     }

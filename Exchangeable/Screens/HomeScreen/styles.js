@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
 
     titleView: {
-        flex: 1 / 3,
+        flex: 1 / 2,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -23,7 +23,6 @@ export default StyleSheet.create({
     },
 
     amountContainer: {
-        flex: 1/15,
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: hp('5%')   
@@ -40,6 +39,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'white',
         width: wp("50%"),
+        height: 40,
         
         borderRadius: 5,
         borderColor: 'black',
@@ -47,21 +47,23 @@ export default StyleSheet.create({
     },
 
     ToFromContainer: {
-        flex: 1/10,
+        flex: 1/4,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: hp('5%')
+        alignItems: 'flex-start',
+        // marginBottom: hp('5%'),
+        // backgroundColor: 'green'
     },
 
     from: {
-        flex: 1/2,
+        // flex: 1/2,
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
 
     to: {
-        flex: 1/2,
+        // flex: 1/2,
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center'
@@ -80,4 +82,38 @@ export default StyleSheet.create({
         fontSize: 15,
         color: 'white',
     },
+
+    calcView: {
+        flex: 1/4,
+        justifyContent: 'center',
+        // backgroundColor: 'red',
+    },
+
+    calcStlye: {
+        // marginTop: hp("5%"),
+        fontSize: 18,
+        color: 'white'
+    },
+
+    newsView: {
+        borderTopWidth: 2,
+        borderTopColor: 'white',
+        paddingTop: hp("5%"),
+        flex: 1,
+        elevation: 1,
+    },
+
+    newsTextStyle: {
+        fontSize: 30,
+        color: 'white',
+        alignSelf: 'center',
+        marginBottom: hp('5%'),
+    },
+
+    cardStyle: {
+        borderColor: 'white',
+        borderWidth: 2,
+        borderRadius: 10,
+        margin: wp("2%")
+    }
 });
