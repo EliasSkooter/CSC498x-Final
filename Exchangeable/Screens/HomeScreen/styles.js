@@ -72,10 +72,14 @@ export default StyleSheet.create({
     dropdownPickerStyle1: {
         width: wp("30%"),
         height: hp("5%"),
+        zIndex: 3,
+        elevation: 3,
     },
     dropdownPickerStyle2: {
         width: wp("30%"),
         height: hp("5%"),
+        zIndex: 3,
+        elevation: 3,
     },
 
     dropDownText: {
@@ -100,7 +104,7 @@ export default StyleSheet.create({
         borderTopColor: 'white',
         paddingTop: hp("5%"),
         flex: 1,
-        elevation: 1,
+        marginBottom: hp('5%'),
     },
 
     newsTextStyle: {
@@ -110,10 +114,26 @@ export default StyleSheet.create({
         marginBottom: hp('5%'),
     },
 
+    newsRenderView: {
+        height: hp("25%"),
+    },
+
     cardStyle: {
         borderColor: 'white',
         borderWidth: 2,
         borderRadius: 10,
-        margin: wp("2%")
+        margin: wp("2%"),
+        width: wp('30%')
+    },
+
+    bottomBar: {
+        // backgroundColor: 'red',
+        // height: hp('5%'),
+        width : wp("100%"),
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
     }
 });

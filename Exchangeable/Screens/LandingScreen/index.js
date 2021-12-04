@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView, Button, TouchableOpacity, Image } from "react-native";
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 import styles from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

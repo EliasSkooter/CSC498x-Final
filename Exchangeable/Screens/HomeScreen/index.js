@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity, Linking, Image } from "react-native";
+import { View, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity, Linking, Image, Alert } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import styles from "./styles";
 import { StackActions, NavigationActions } from "react-navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IP } from "../../config/BackendIP";
-import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 export default function Home({ navigation }) {
 
@@ -20,7 +20,7 @@ export default function Home({ navigation }) {
 
     useEffect(() => {
         // SyncCurrencies();
-        // getCurrenciesFromDB();
+        getCurrenciesFromDB();
         getNews();
     }, []);
 
@@ -36,7 +36,6 @@ export default function Home({ navigation }) {
         })
             .then(res => res.json())
             .then(res => {
-                console.log("ressss sizeee =>", res.length);
                 let temp = [];
 
                 for (let item of res) {
@@ -52,7 +51,11 @@ export default function Home({ navigation }) {
     }
 
     const SyncCurrencies = async () => {
-        fetch("https://cdn.moneyconvert.net/api/latest.json", {
+
+        //
+        //https://cdn.moneyconvert.net/api/latest.json
+
+        fetch("http://api.exchangeratesapi.io/v1/latest?access_key=6fac61839f259e7a3390db2d491dc263", {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -132,26 +135,71 @@ export default function Home({ navigation }) {
                     console.log(item.imageUrl);
 
                     return (
-                        <View>
-                            <TouchableOpacity
-                                // style={{ backgroundColor: 'red' }}
-                                onPress={() => {
-                                    Linking.openURL(item.url).catch(e => { console.log(e) });
-                                }}
+                        <TouchableOpacity
+                            onLongPress={() => {
+                                Linking.openURL(item.url).catch(e => { console.log(e) });
+
+                            }}
+                            onPress={() => {
+                                return (
+                                    Alert.alert(
+                                        "Article Title:",
+                                        item.title + "\n\n*Long press card to open web page",
+                                    )
+                                )
+                            }}
+                        >
+                            <View
+                                style={styles.newsRenderView}
                             >
-                                <View style={styles.cardStyle}>
-                                <Text>Hello</Text>
-                                    
-                                </View>
-                                
-
-                            </TouchableOpacity>
-
-
-                        </View>
+                                <Card
+                                    style={styles.cardStyle}
+                                >
+                                    <CardImage
+                                        source={{ uri: item.imageUrl }}
+                                    />
+                                </Card>
+                            </View>
+                        </TouchableOpacity>
                     )
                 }}
             />
+        )
+    }
+
+    const RenderBottomBar = () => {
+        return (
+            <View
+                style={styles.bottomBar}
+            >
+                <Icon
+                    name="home"
+                    size={19}
+                    color={'white'}
+                    onPress={() => {
+                        console.log("Already home :)");
+                    }}
+                />
+                <Icon
+                    name="globe-americas"
+                    size={19}
+                    color={'white'}
+                    onPress={() => {
+                        console.log("navigating to trends screen...");
+                        navigation.navigate("Trends");
+                    }}
+                />
+                <Icon
+                    name="home"
+                    size={19}
+                    color={'white'}
+                    onPress={() => {
+                        console.log("navigating to settings screen...");
+                        navigation.navigate("Settings");
+                    }}
+                />
+
+            </View>
         )
     }
 
@@ -234,6 +282,8 @@ export default function Home({ navigation }) {
                 <Text style={styles.newsTextStyle}> Today's News </Text>
                 {RenderNews()}
             </View>
+
+            {RenderBottomBar()}
         </SafeAreaView>
     )
 }
