@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 import styles from "./styles";
 
-export default function Trends() {
+export default function Trends({navigation}) {
 
     const [openDropDown, setOpenDropDown] = useState(false);
     const [currencies, setCurrencies] = useState([]);
@@ -22,10 +22,6 @@ export default function Trends() {
     useEffect(() => {
         getCurrenciesFromDB();
         getDates();
-
-        let x = 23128.073625;
-        console.log("????????", )
-
     }, []);
 
     const getDates = () => {
@@ -115,6 +111,41 @@ export default function Trends() {
             });
     }
 
+    const RenderBottomBar = () => {
+        return (
+            <View
+                style={styles.bottomBar}
+            >
+                <Icon
+                    name="home"
+                    size={19}
+                    color={'white'}
+                    onPress={() => {
+                        console.log("navigating to home screen...");
+                        navigation.navigate("Home");
+                    }}
+                />
+                <Icon
+                    name="globe-americas"
+                    size={19}
+                    color={'white'}
+                    onPress={() => {
+                        console.log("Already in Trends :)");
+                    }}
+                />
+                <Icon
+                    name="cog"
+                    size={19}
+                    color={'white'}
+                    onPress={() => {
+                        console.log("navigating to settings screen...");
+                        navigation.navigate("Settings");
+                    }}
+                />
+
+            </View>
+        )
+    }
 
     return (
         <View style={styles.container}>
@@ -185,6 +216,7 @@ export default function Trends() {
                 </View>
             }
 
+            {RenderBottomBar()}
         </View>
     )
 }

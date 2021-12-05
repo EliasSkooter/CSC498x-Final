@@ -91,4 +91,15 @@ export default StyleSheet.create({
         fontSize: 18,
 
     },
+
+    bottomBar: {
+        // backgroundColor: 'red',
+        // height: hp('5%'),
+        width : wp("100%"),
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+    },
 });

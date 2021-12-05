@@ -190,7 +190,7 @@ export default function Home({ navigation }) {
                     }}
                 />
                 <Icon
-                    name="home"
+                    name="cog"
                     size={19}
                     color={'white'}
                     onPress={() => {
