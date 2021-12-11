@@ -16,15 +16,15 @@
     }
   },
   "attributes": {
-    "password": {
-      "type": "string",
+    "username": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "type": "string"
     },
-    "username": {
+    "password": {
       "pluginOptions": {
         "i18n": {
           "localized": true

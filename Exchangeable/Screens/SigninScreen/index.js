@@ -12,15 +12,29 @@ const logo = require('../../assets/Exchangeable.png');
 
 export default function Signin({ navigation }) {
 
+    const [listofUsers, setListofUsers] = useState([]);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
-    const [listofUsers, setListofUsers] = useState([]);
+    const [usernameControl, setUsernameControl] = useState(true);
+    const [passwordControl, setPasswordControl] = useState(true);
 
     const SubmitLogin = (username, password) => {
 
-        if (username == undefined && password == undefined) {
-            console.log("Please enter a username and a password!")
-            return "Failure"
+        let proceed = true;
+
+        if (username == undefined || username?.length < 8) {
+            setUsernameControl(false);
+            proceed = false;
+        }
+
+        if (password == undefined || password?.length < 8) {
+            setPasswordControl(false);
+            proceed = false;
+        }
+
+        if (proceed == false) {
+            console.log("invalid username or password.");
+            return "Failed.";
         }
         // console.log("username: " + username + "\npassword: " + password + "\nIP: " + IP);
 
@@ -29,10 +43,10 @@ export default function Signin({ navigation }) {
                 if (password.toUpperCase() == listofUsers[i].password.toUpperCase()) {
                     console.log("sign in succeeded!");
                     AsyncStorage.setItem("User", listofUsers[i].id.toString())
-                    .catch(e => {
-                        console.log("Failed to save user in Async Storage...");
-                    });
-                    
+                        .catch(e => {
+                            console.log("Failed to save user in Async Storage...");
+                        });
+
                     navigation.navigate("Home");
                     return "Success"
                 }
@@ -73,6 +87,7 @@ export default function Signin({ navigation }) {
                 <Text style={styles.title}> Exchangeable </Text>
             </View>
 
+            {!usernameControl && <Text style={styles.formControl}>*Please input a valid username...</Text>}
             <View style={styles.textInputView1}>
                 <TextInput
                     style={styles.textInput1}
@@ -81,10 +96,15 @@ export default function Signin({ navigation }) {
                     onChangeText={text => {
                         setUsername(text);
                         console.log(text);
+                        if (text.length > 8) {
+                            setUsernameControl(true);
+                        }
+
                     }}
                 />
             </View>
 
+            {!usernameControl && <Text style={styles.formControl}>*Please input a valid password...</Text>}
             <View style={styles.textInputView2}>
                 <TextInput
                     style={styles.textInput2}
@@ -94,18 +114,22 @@ export default function Signin({ navigation }) {
                     onChangeText={text => {
                         setPassword(text);
                         console.log(text);
+                        if (text.length > 8) {
+                            setPasswordControl(true);
+                        }
                     }}
                 />
             </View>
 
-            <View style={styles.buttonView}>
+            <View style={usernameControl && passwordControl ? styles.buttonView : styles.disabledButtonView}>
                 <TouchableOpacity
+                    disabled={!(usernameControl && passwordControl)}
                     style={styles.button}
                     onPress={() => {
                         SubmitLogin(username, password);
                     }}
                 >
-                    <Text style={styles.buttonText}> Sign In</Text>
+                    <Text style={usernameControl && passwordControl ? styles.buttonText : styles.disabledButtonText}> Sign In</Text>
                 </TouchableOpacity>
             </View>
 
@@ -114,7 +138,6 @@ export default function Signin({ navigation }) {
                     source={logo}
                 />
             </View>
-
         </SafeAreaView>
     )
 }

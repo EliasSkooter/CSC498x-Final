@@ -35,6 +35,13 @@ export default StyleSheet.create({
         borderWidth: 1
     },
 
+    formControl: {
+        fontSize: 16,
+        color: 'red',
+        alignSelf: 'center',
+        position: 'relative',
+    },
+
     textInput1: {
         color: 'black',
         fontSize: 12
@@ -69,6 +76,17 @@ export default StyleSheet.create({
         borderRadius: 5,
     },
 
+    disabledButtonView: {
+        flex: 1 / 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft : wp('15%'),
+        marginRight : wp('15%'),
+        marginBottom : wp('5%'),
+        borderRadius: 5,
+        backgroundColor: 'rgba(0,139,139, 0.2)',
+    },
+
     button: { 
         flex: 1, 
         width: wp("70%"),
@@ -78,6 +96,11 @@ export default StyleSheet.create({
 
     buttonText: {
         color: 'black',
+        fontSize: 20
+    },
+
+    disabledButtonText: {
+        color: 'grey',
         fontSize: 20
     },
 

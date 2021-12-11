@@ -22,6 +22,7 @@ export default function Home({ navigation }) {
         // SyncCurrencies();
         getCurrenciesFromDB();
         getNews();
+        // AsyncStorage.clear();
     }, []);
 
 
