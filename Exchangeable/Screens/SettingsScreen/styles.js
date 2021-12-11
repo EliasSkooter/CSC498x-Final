@@ -42,5 +42,21 @@ export default StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         bottom: 0,
-    }
+    },
+
+    signOutView: {
+        backgroundColor: 'red',
+        height: hp("10%"),
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: wp('80%'),
+        position: 'absolute',
+        bottom: hp('10%'),
+        left: wp('10%'),
+    },
+
+    signOutText: {
+        color: 'white',
+        fontSize: 25
+    },
 });

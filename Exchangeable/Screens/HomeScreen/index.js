@@ -28,7 +28,7 @@ export default function Home({ navigation }) {
 
 
     const getCurrenciesFromDB = () => {
-        fetch(IP + "/currencyrates", {
+        fetch(IP + "/currencyrates?_limit=-1", {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -204,6 +204,17 @@ export default function Home({ navigation }) {
         )
     }
 
+    const CalculateRate = () => {
+        let rate = Math.round((toValue / fromValue) * 1000) / 1000 
+        let result = amount * rate
+        return (
+            <View style={styles.calcView}>
+                <Text style={styles.calcStlye}>You would get <Text style={{color: 'lime'}}>{result}</Text></Text> 
+                <Text style={styles.calcStlye}>at a rate of<Text style={{color: 'lime'}}> {rate} </Text></Text>
+            </View>
+        )
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titleView}>
@@ -273,11 +284,7 @@ export default function Home({ navigation }) {
                 </View>
             </View>
 
-            {amount != 0 && fromValue != null && toValue != null &&
-                <View style={styles.calcView}>
-                    <Text style={styles.calcStlye}>Display {fromValue} here! {toValue}</Text>
-                </View>
-            }
+            {amount != 0 && fromValue != null && toValue != null && CalculateRate()}
 
             <View style={styles.newsView}>
                 <Text style={styles.newsTextStyle}> Today's News </Text>

@@ -30,7 +30,8 @@
           "localized": true
         }
       },
-      "type": "string"
+      "type": "password",
+      "required": true
     }
   }
 }

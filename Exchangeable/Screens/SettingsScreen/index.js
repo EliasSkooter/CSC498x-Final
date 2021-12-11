@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { CheckBox } from "react-native-elements/dist/checkbox/CheckBox";
 import { IP } from "../../config/BackendIP";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import styles from "./styles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Settings({navigation}) {
 
@@ -66,6 +67,22 @@ export default function Settings({navigation}) {
                         setCheckbox(!checkbox);
                     }}
                 />
+            </View>
+
+            <View
+                style = {styles.signOutView}
+            >
+                <TouchableOpacity
+                    disabled = {false}
+                    style = {styles.signOutButton}
+                    onPress = {() => {
+                        console.log("Signing out...");
+                        AsyncStorage.removeItem('User');
+                        navigation.navigate('Landing');
+                    }}
+                >
+                    <Text style = {styles.signOutText}> Sign Out </Text>
+                </TouchableOpacity>
             </View>
 
             {RenderBottomBar()}
