@@ -17,6 +17,9 @@
     },
     "rate": {
       "type": "float"
+    },
+    "blackMarket": {
+      "type": "boolean"
     }
   }
 }

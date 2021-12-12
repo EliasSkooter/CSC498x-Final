@@ -10,6 +10,12 @@ export default StyleSheet.create({
         backgroundColor: "rgb(171,183,183)"
     },
 
+    backButtonView: {
+        position: 'absolute',
+        left: wp('5%'),
+        top: hp('5%'),
+    },
+
     titleView: {
         flex: 1 / 4,
         alignItems: 'center',

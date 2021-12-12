@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView, Button, TouchableOpacity, Image, TextInput } from "react-native";
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 import styles from "./styles";
 import { IP } from '../../config/BackendIP';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 const logo = require('../../assets/Exchangeable.png');
 
@@ -45,17 +42,18 @@ export default function Signin({ navigation }) {
 
         const bodyReq = {
             username: username,
+            email: `${username}noEmail@gmail.com`,
             password: password
         };
 
-        for (let i = 0; i < listofUsers.length; i++) {
-            if (username.toUpperCase() == listofUsers[i].username.toUpperCase()) {
-                console.log("This username is taken.");
-                return "Failed"
-            }
-        }
+        // for (let i = 0; i < listofUsers.length; i++) {
+        //     if (username.toUpperCase() == listofUsers[i].username.toUpperCase()) {
+        //         console.log("This username is taken.");
+        //         return "Failed"
+        //     }
+        // }
 
-        fetch(IP + "/user-entities", {
+        fetch(IP + "/auth/local/register", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -66,7 +64,7 @@ export default function Signin({ navigation }) {
             .then(res => res.json())
             .then(res => {
                 console.log("response after submit...", res);
-                AsyncStorage.setItem('User', res.id.toString());
+                AsyncStorage.setItem('User', res.user.id.toString());
                 navigation.navigate('Home');
             })
             .catch(e => {
@@ -74,32 +72,48 @@ export default function Signin({ navigation }) {
             })
     }
 
-    const FetchUsers = () => {
-        console.log("fetching users...");
-        fetch(IP + `/user-entities`, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(res => res.json())
-            .then(res => {
-                console.log("res ===>", res);
-                setListofUsers(res);
-            })
-            .catch(e => {
-                console.log("Failed to fetch list of users", e);
-            })
+    const RenderBackButton = () => {
+        return (
+            <View style={styles.backButtonView}>
+                <Icon
+                    name="arrow-left"
+                    size={25}
+                    color={'black'}
+                    onPress={() => {
+                        navigation.pop();
+                    }}
+                />
+            </View>
+        )
     }
 
-    useEffect(() => {
-        FetchUsers();
+    // const FetchUsers = () => {
+    //     console.log("fetching users...");
+    //     fetch(IP + `/user-entities`, {
+    //         method: 'GET',
+    //         headers: {
+    //             Accept: 'application/json',
+    //             'Content-Type': 'application/json',
+    //         },
+    //     })
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             console.log("res ===>", res);
+    //             setListofUsers(res);
+    //         })
+    //         .catch(e => {
+    //             console.log("Failed to fetch list of users", e);
+    //         })
+    // }
 
-    }, [])
+    // useEffect(() => {
+    //     FetchUsers();
+
+    // }, [])
 
     return (
         <SafeAreaView style={styles.container}>
+            {RenderBackButton()}
             <View style={styles.titleView}>
                 <Text style={styles.title}> Exchangeable </Text>
             </View>
@@ -164,7 +178,7 @@ export default function Signin({ navigation }) {
 
             <View style={usernameControl && passwordControl && confirmedPasswordControl ? styles.buttonView : styles.disabledButtonView}>
                 <TouchableOpacity
-                    disabled = {!(usernameControl && passwordControl && confirmedPasswordControl)}
+                    disabled={!(usernameControl && passwordControl && confirmedPasswordControl)}
                     style={styles.button}
                     onPress={() => {
                         SubmitSignUp(username, password);

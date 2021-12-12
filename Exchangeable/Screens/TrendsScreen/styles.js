@@ -92,6 +92,16 @@ export default StyleSheet.create({
 
     },
 
+    chartView: {
+        flex: 1/2,
+
+    },
+
+    chartTextStyle: {
+        fontSize: 14,
+        color: 'white'
+    },
+
     bottomBar: {
         // backgroundColor: 'red',
         // height: hp('5%'),

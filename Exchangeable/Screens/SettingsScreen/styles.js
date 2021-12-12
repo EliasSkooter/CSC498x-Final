@@ -51,11 +51,27 @@ export default StyleSheet.create({
         alignItems: 'center',
         width: wp('80%'),
         position: 'absolute',
-        bottom: hp('10%'),
+        bottom: hp('30%'),
         left: wp('10%'),
     },
 
     signOutText: {
+        color: 'white',
+        fontSize: 25
+    },
+
+    deleteAccountView: {
+        backgroundColor: 'red',
+        height: hp("10%"),
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: wp('80%'),
+        position: 'absolute',
+        bottom: hp('10%'),
+        left: wp('10%'),
+    },
+
+    deleteAccountText: {
         color: 'white',
         fontSize: 25
     },

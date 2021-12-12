@@ -13,18 +13,19 @@ export default function Landing({ navigation }) {
     useEffect(() => {
         AsyncStorage.getItem("User").then((user) => {
             if (user != null) {
-                fetch(IP + `/user-entities`, {
+                fetch(IP + `/users`, {
                     method: 'GET',
                     headers: {
                         Accept: 'application/json',
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'applicati  on/json',
                     },
                 })
                     .then(res => res.json())
                     .then(res => {
+                        console.log("landing res....", res);
                         for (let item of res) {
-                            if (item.id == user) {
-                                console.log("current active user...", user);
+                            if (item.id == item.id) {
+                                console.log("current active user...", item);
                                 navigation.navigate("Home");
                             }
                             else {

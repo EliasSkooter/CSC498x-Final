@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity, Linking, Image, Alert } from "react-native";
+import React, { useEffect, useState, useFocusEffect } from "react";
+import { View, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity, Linking, Alert } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import styles from "./styles";
-import { StackActions, NavigationActions } from "react-navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IP } from "../../config/BackendIP";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -17,18 +16,44 @@ export default function Home({ navigation }) {
     const [amount, setAmount] = useState(0);
     const [currencies, setCurrencies] = useState([]);
     const [news, setNews] = useState([]);
+    const [ter2i3a, setTer2i3a] = useState([0]);
 
     useEffect(() => {
         // SyncCurrencies();
         getCurrenciesFromDB();
         getNews();
         // AsyncStorage.clear();
+        // getBlackMarketRate();
+        unsubscribe;
     }, []);
 
+    const unsubscribe = navigation.addListener('didFocus', () => {
+        if (ter2i3a != 0) {
+            console.log("You shall not pass!");
+        }
 
+        else {
+            console.log("only once...");
+            getCurrenciesFromDB();
+            CalculateRate();
+        }
+        console.log('focussed');
+        setTer2i3a(ter2i3a + 1);
+    });
+
+    const getBlackMarketRate = () => {
+        fetch("https://lirarate.org/", {
+            method: 'GET',
+            
+        })
+        .then(res => res.text())
+        .then(res => {
+            console.log("black Market rate...", res.substring(res.indexOf('"buy-result"'), res.length) );
+        })
+    }
 
     const getCurrenciesFromDB = () => {
-        fetch(IP + "/currencyrates?_limit=-1", {
+        fetch(IP + "/currencyrates?_limit=-1&blackMarket=false", {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -38,10 +63,40 @@ export default function Home({ navigation }) {
             .then(res => res.json())
             .then(res => {
                 let temp = [];
-
                 for (let item of res) {
                     temp.push({ id: item.id, name: item.name, rate: item.rate });
                 }
+
+                AsyncStorage.getItem('blackMarket').then(blackMarketBool => {
+                    if (blackMarketBool == "true") {
+
+                        fetch(`${IP}/currencyrates?_limit=-1&blackMarket=true`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Accept: 'application/json',
+                            }
+                        })
+                        .then(res => res.json())
+                        .then(res => {
+                            for (let item1 of res) {
+                                for (let item2 of temp) {
+                                    if (item2.name == item1.name) {
+                                        item2.rate = item1.rate;
+                                        console.log("item successfully edited...", item2);
+                                        break;
+                                    }
+                                }
+                            }
+                        })
+                        .catch(e => {
+                            console.log("failed to update black market rates...", e);
+                        })
+                    }
+                    else {
+                        console.log('nevermind...');
+                    }
+                })
 
                 setCurrencies(temp);
 
@@ -79,7 +134,8 @@ export default function Home({ navigation }) {
 
                     const bodyReq = {
                         name: name,
-                        rate: rate
+                        rate: rate,
+                        blackMarket: false,
                     }
 
                     await fetch(IP + "/currencyrates", {
@@ -206,7 +262,7 @@ export default function Home({ navigation }) {
 
     const CalculateRate = () => {
         let rate = Math.round((toValue / fromValue) * 1000) / 1000 
-        let result = amount * rate
+        let result = Math.round((amount * rate) * 1000) / 1000
         return (
             <View style={styles.calcView}>
                 <Text style={styles.calcStlye}>You would get <Text style={{color: 'lime'}}>{result}</Text></Text> 
